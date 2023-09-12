@@ -1,4 +1,5 @@
-import { FormLogin, FormDiv, TitleInputForm, InputForm, ButtonForm } from "./style"
+import { FormLogin, FormDiv, TitleInputForm, InputForm, ButtonForm, LinkToRegister, ColorLink } from "./style"
+import Link from "next/link"
 
 export default function Login() {
 
@@ -6,13 +7,18 @@ export default function Login() {
         <FormLogin>
             <FormDiv>
                 <TitleInputForm>Email</TitleInputForm>
-                <InputForm type="email" placeholder="E-mail" />
+                <InputForm type="email" placeholder="exemplo@email.com" />
             </FormDiv>
             <FormDiv>
                 <TitleInputForm>Senha</TitleInputForm>
-                <InputForm type="password" placeholder="Senha" />
+                <InputForm type="password" placeholder="Insira sua senha" />
             </FormDiv>
             <ButtonForm>Login</ButtonForm>
-        </FormLogin>
+            <LinkToRegister>Para se cadastrar
+                <Link href="/Singup">
+                    <ColorLink>click aqui</ColorLink>
+                </Link>
+            </LinkToRegister>
+        </FormLogin >
     )
 }

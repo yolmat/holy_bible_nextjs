@@ -12,12 +12,12 @@ export const MainHome = styled(motion.div)`
 `
 
 export const TitleHome = styled.h1`
-    color: #c5c5c5;
+    color: var(--color-font-titles);
     font-size: 4rem;
 `
 
 export const SubtitleHome = styled.h2`
-    color: #a9a9a9;
+    color: var(--color-font-subtitle);
     font-size: 2rem;
     margin: 15px 0 20px 0;
 `
@@ -36,7 +36,7 @@ export const ButtonHomeLink = styled(motion.button)`
     border:none; 
     border-radius: 15px;
     font-size: 1rem;
-    background-color: #565656;
-    color: #fff;
+    background-color: var(--color-background-button);
+    color: var(--color-font-button);
     font-weight: bold;
 `

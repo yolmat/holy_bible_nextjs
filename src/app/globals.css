@@ -4,6 +4,16 @@
   margin: 0;
 }
 
+:root {
+  --color-background-main: #1f1f1f;
+  --color-background-item: #323232;
+  --color-font-titles: #c5c5c5;
+  --color-font-subtitle: #a9a9a9;
+  --color-background-button: #565656;
+  --color-font-button: #fff;
+
+}
+
 html,
 body {
   display: flex;
@@ -12,5 +22,5 @@ body {
   height: 100vh;
   max-width: 100vw;
   overflow-x: hidden;
-  background-color: #1f1f1f;
+  background-color: var(--color-background-main);
 }
