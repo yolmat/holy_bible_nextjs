@@ -12,7 +12,7 @@ export const FormLogin = styled.form`
     border-radius: 15px;
     border: #505050 1px solid;
     min-width: 30vw;
-    max-width: 40vw;
+    max-width: 80vw;
 
     @media screen and (max-width: 720px) {
         width: 80vw;
@@ -32,7 +32,7 @@ export const TitleInputForm = styled.label`
 
 export const InputForm = styled.input`
     min-width: 20vw;
-    max-width: 30vw;
+    max-width: 80vw;
     padding: 0.5rem 0.3rem 0.5rem 1rem;
     border: none;
     border-radius: 8px
