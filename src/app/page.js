@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link"
 import { TitleHome, MainHome, SubtitleHome, ButtonsHome, ButtonHomeLink } from "./style"
 
