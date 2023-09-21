@@ -33,6 +33,9 @@ export default function Singup() {
 
         setError("")
 
+        deleteCookie('auth')
+        deleteCookie('email')
+
         event.preventDefault()
         try {
             if (formData.password !== formData.confirmedPassword) throw new Error()

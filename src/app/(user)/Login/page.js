@@ -46,7 +46,7 @@ export default function Login() {
             if (response.status !== 200) throw new Error(json)
 
             await setCookie('auth', json.token)
-            await setCookie('email', json.email)
+            await window.localStorage.setItem('email', json.email)
             router.push('/')
 
         } catch (err) {

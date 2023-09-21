@@ -1,9 +1,39 @@
 "use client"
 
 import Link from "next/link"
+import { useRouter } from 'next/navigation';
+import { getCookie } from 'cookies-next';
 import { TitleHome, MainHome, SubtitleHome, ButtonsHome, ButtonHomeLink } from "./style"
 
 export default function Home() {
+
+  const router = useRouter()
+
+  const verifExistToken = async () => {
+    let token = getCookie('auth')
+    let emailvalidation
+
+    if (typeof window !== 'undefined') {
+      emailvalidation = window.localStorage.getItem('email')
+    }
+    try {
+      const validation = await fetch(`https://www.abibliadigital.com.br/api/users/${emailvalidation}`, {
+        method: "GET",
+        headers: {
+          'Authorization': 'Bearer ' + token
+        }
+      })
+
+      if (validation.status !== 200) throw new Error(json)
+      router.push('/AllBooks')
+
+    } catch (err) {
+
+    }
+
+  }
+
+  verifExistToken()
 
   return (
     <MainHome
