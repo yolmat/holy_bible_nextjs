@@ -36,10 +36,11 @@ export default function Login() {
                 body: JSON.stringify(formData)
             })
             const json = await response.json()
-            await setCookie('auth', json.token, { maxAge: 60 * 60 * 24 })
-            router.push('/')
-            if (response.status !== 201) throw new Error(json)
 
+            if (response.status !== 200) throw new Error(json)
+
+            await setCookie('auth', json.token)
+            router.push('/')
 
         } catch (err) {
             setError("Usuario ou senha incorreta")
@@ -49,7 +50,7 @@ export default function Login() {
     return (
         <Window onSubmit={handleForm}>
             <InputUsers type="email" placeholder="exemplo@email.com" required value={formData.email} onChange={(e) => { handleFormEdit(e, 'email') }}>Email</InputUsers>
-            <InputUsers type="password" placeholder="Insira sua senha" required value={formData.password} onChange={(e) => { handleFormEdit(e, 'password') }}>Senha</InputUsers>
+            <InputUsers type="current-password" placeholder="Insira sua senha" required value={formData.password} onChange={(e) => { handleFormEdit(e, 'password') }}>Senha</InputUsers>
             <Button>Login</Button>
             {error && <p>{error}</p>}
             <LinkToRegister>Para se cadastrar
