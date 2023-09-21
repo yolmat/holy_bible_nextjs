@@ -30,6 +30,9 @@ export default function Singup() {
     const [error, setError] = useState('')
 
     const handleForm = async (event) => {
+
+        setError("")
+
         event.preventDefault()
         try {
             if (formData.password !== formData.confirmedPassword) throw new Error()
