@@ -25,7 +25,7 @@ export default function Home() {
       })
 
       if (validation.status !== 200) throw new Error(json)
-      router.push('/AllBooks')
+      router.push('/Bible')
 
     } catch (err) {
 
