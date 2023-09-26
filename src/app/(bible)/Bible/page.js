@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { getCookie } from 'cookies-next';
 import { useEffect, useState } from 'react';
-import { Container, SideBar, Image, NameUsers, Space, ShowBooks } from './style'
+import { Container, NavBar, NameUsers, ShowBooks, Book, AbbrevBook, NameBook } from './style'
 
 export default function Bible() {
 
@@ -11,8 +11,9 @@ export default function Bible() {
 
     const router = useRouter()
 
+    let token = getCookie('auth')
+
     const verifExistToken = async () => {
-        let token = getCookie('auth')
         let emailvalidation
 
         if (typeof window !== 'undefined') {
@@ -39,7 +40,12 @@ export default function Bible() {
 
     useEffect(() => {
         const getAllBooks = async () => {
-            const allBooks = await fetch("https://www.abibliadigital.com.br/api/books")
+            const allBooks = await fetch("https://www.abibliadigital.com.br/api/books", {
+                method: "GET",
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            })
 
             const response = await allBooks.json()
 
@@ -51,18 +57,27 @@ export default function Bible() {
 
     return (
         <Container>
-            <SideBar>
-                <Image>222</Image>
-                <NameUsers>teste1</NameUsers>
-            </SideBar>
-            <Space></Space>
-            <ShowBooks>{
-                books &&
-                books.map(oneBook => (
-                    <p>{oneBook.name}</p>
-                ))
-            }</ShowBooks>
-            <Space></Space>
+            <NavBar>
+                <NameUsers>Olá, Name</NameUsers>
+            </NavBar>
+
+            <ShowBooks>
+                {books && books.map(ShowDetailBooks => (
+                    <Book
+                        initial={{ opacity: 0, scale: 0.2 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{
+                            duration: 1.5,
+                            delay: 0.2,
+                            ease: [0, 0.71, 0.2, 1.01]
+                        }}
+                    >
+                        <AbbrevBook>{ShowDetailBooks.abbrev.pt}</AbbrevBook>
+                        <NameBook>{ShowDetailBooks.name}</NameBook>
+                    </Book>
+                ))}
+            </ShowBooks>
+
         </Container>
     )
 }

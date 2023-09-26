@@ -45,7 +45,7 @@ export default function Login() {
 
             if (response.status !== 200) throw new Error(json)
 
-            await setCookie('auth', json.token)
+            await setCookie('auth', json.token, { maxAge: 60 * 60 * 24 * 15 })
             await window.localStorage.setItem('email', json.email)
             router.push('/')
 

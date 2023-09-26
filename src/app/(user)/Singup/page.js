@@ -55,7 +55,7 @@ export default function Singup() {
 
             if (response.status !== 200) throw new Error(json)
 
-            await setCookie('auth', json.token)
+            await setCookie('auth', json.token, { maxAge: 60 * 60 * 24 * 15 })
             router.push('/')
 
         } catch (err) {
