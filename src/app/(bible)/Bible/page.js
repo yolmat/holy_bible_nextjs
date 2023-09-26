@@ -55,6 +55,10 @@ export default function Bible() {
         getAllBooks()
     }, [])
 
+    const chosenBookToPage = (e, chosenBook) => {
+        console.log(chosenBook)
+    }
+
     return (
         <Container>
             <NavBar>
@@ -64,6 +68,8 @@ export default function Bible() {
             <ShowBooks>
                 {books && books.map(ShowDetailBooks => (
                     <Book
+                        key={ShowDetailBooks.name}
+                        onClick={(e) => chosenBookToPage(e, ShowDetailBooks.abbrev.pt)}
                         initial={{ opacity: 0, scale: 0.2 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{
@@ -71,6 +77,8 @@ export default function Bible() {
                             delay: 0.2,
                             ease: [0, 0.71, 0.2, 1.01]
                         }}
+
+
                     >
                         <AbbrevBook>{ShowDetailBooks.abbrev.pt}</AbbrevBook>
                         <NameBook>{ShowDetailBooks.name}</NameBook>
