@@ -4,14 +4,14 @@ import { useRouter } from 'next/navigation';
 import { getCookie, setCookie } from 'cookies-next';
 import { useEffect, useState } from 'react';
 import { Container, NavBar, NameUsers, ShowBooks, Book, AbbrevBook, NameBook } from './style'
-
 export default function Bible() {
 
-    const [books, setBooks] = useState()
+    const [chaptersInTheBook, setChaptersInTheBook] = useState()
 
     const router = useRouter()
 
     let token = getCookie('auth')
+    let getCookieChosenBook = getCookie('book')
 
     const verifExistToken = async () => {
         let emailvalidation
@@ -39,8 +39,8 @@ export default function Bible() {
     verifExistToken()
 
     useEffect(() => {
-        const getAllBooks = async () => {
-            const allBooks = await fetch("https://www.abibliadigital.com.br/api/books", {
+        const getChapterChosenBook = async () => {
+            const allBooks = await fetch(`https://www.abibliadigital.com.br/api/books/${getCookieChosenBook}`, {
                 method: "GET",
                 headers: {
                     'Authorization': 'Bearer ' + token
@@ -49,44 +49,34 @@ export default function Bible() {
 
             const response = await allBooks.json()
 
-            setBooks(response)
+            const numberChapters = await response.chapters
+
+            const objetiveAllNumberChapters = []
+
+            for (let i = 1; i <= numberChapters; i++) {
+                const chapter = {
+                    name: response.name,
+                    chapterBook: i
+                }
+                objetiveAllNumberChapters.push(chapter)
+                console.log(chapter)
+            }
+
+            setChaptersInTheBook(objetiveAllNumberChapters)
         }
 
-        getAllBooks()
+        getChapterChosenBook()
     }, [])
-
-    const chosenBookToPage = (e, chosenBook) => {
-        setCookie('book', chosenBook)
-        router.push('/Bible/Book')
-    }
 
     return (
         <Container>
             <NavBar>
                 <NameUsers>Olá, Name</NameUsers>
             </NavBar>
-
-            <ShowBooks>
-                {books && books.map(ShowDetailBooks => (
-                    <Book
-                        key={ShowDetailBooks.name}
-                        onClick={(e) => chosenBookToPage(e, ShowDetailBooks.abbrev.pt)}
-                        initial={{ opacity: 0, scale: 0.2 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{
-                            duration: 1.5,
-                            delay: 0.2,
-                            ease: [0, 0.71, 0.2, 1.01]
-                        }}
-
-
-                    >
-                        <AbbrevBook>{ShowDetailBooks.abbrev.pt}</AbbrevBook>
-                        <NameBook>{ShowDetailBooks.name}</NameBook>
-                    </Book>
-                ))}
-            </ShowBooks>
-
-        </Container>
-    )
+            {
+                chaptersInTheBook && chaptersInTheBook.map(detailChapterBook => (
+                    <div>{detailChapterBook.chapterBook}</div>
+                ))
+            }
+        </Container>)
 }
